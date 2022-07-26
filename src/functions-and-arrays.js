@@ -1,41 +1,106 @@
 // Iteration #1: Find the maximum
-function maxOfTwoNumbers() {}
+function maxOfTwoNumbers(number1, number2) {
+  if(number1===number2){
+    return number1;
+  }else if(number1>number2){
+    return number1;
+  }else{
+    return number2;
+  }
+}
 
 
 
 // Iteration #2: Find longest word
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
 
-function findLongestWord() {}
+function findLongestWord(arrayofWords) {
+  if(arrayofWords.length===0){
+    return null;
+  }
+  let longestWord='';
+  for(let i=0; i<arrayofWords.length;i++){
+    if(arrayofWords[i].length>longestWord.length){
+      longestWord=arrayofWords[i];
+    }
+  }
+  return longestWord;
+}
 
 
 
 // Iteration #3: Calculate the sum
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
-function sumNumbers() {}
+function sumNumbers(arrayOfNumbers) {
+  let sum=0;
+  console.trace(arrayOfNumbers);
+  arrayOfNumbers.forEach( num => sum+=num);
+  return sum;
+}
 
+function sumString(arrayOfString) {
+  let sum=0;
+  arrayOfString.forEach(string => sum+=string.length)
+  return sum;
+}
+function sumBool(arrayOfBool) {
+  let sum=0;
+  arrayOfBool.forEach(function(bool) {if(bool){sum+=1}});
+  return sum;
+}
 
 
 // Iteration #3.1 Bonus:
-function sum() {}
+function sum(arrayOfAll) {
+  let sumofAll=0;
+  arrayOfAll.forEach(function(element){
+    switch(typeof element){
+      case 'number':
+        sumofAll+=element;
+        
+        break;
+      case 'string':
+        sumofAll+=element.length;
+  
+        break;
+      case 'boolean':
+        sumofAll+=element;
+        
+        break;
+      default:
+        throw new Error("Unsupported data type sir or ma'am");
+      ;
+    }
+  });
 
+  return sumofAll
+}
 
 
 // Iteration #4: Calculate the average
 // Level 1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function averageNumbers() {}
+function averageNumbers(arrayOfNumbers) {
+  if(arrayOfNumbers.length!==0) return sumNumbers(arrayOfNumbers)/arrayOfNumbers.length;
+  return null;
+}
 
 
 // Level 2: Array of strings
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
 
-function averageWordLength() { }
+function averageWordLength(arrayOfString) { 
+  if(arrayOfString.length!==0) return sumString(arrayOfString)/arrayOfString.length;
+  return null;
+}
 
 // Bonus - Iteration #4.1
-function avg() {}
+function avg(arrayofAll) {
+  if(arrayofAll.length!==0) return sum(arrayofAll)/arrayofAll.length;
+  return null;
+}
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
@@ -52,14 +117,26 @@ const wordsUnique = [
   'bring'
 ];
 
-function uniquifyArray() {}
+function uniquifyArray(arrayofWords) {
+  let newArray=[];
+    if(arrayofWords.length===0)return null;
+    for(let i = 0; i<arrayofWords.length;i++){
+      if(!newArray.includes(arrayofWords[i])){
+        newArray.push(arrayofWords[i])
+      }
+    }
+    return newArray
+}
 
 
 
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
 
-function doesWordExist() {}
+function doesWordExist(arrayofWords,word) {
+  if(arrayofWords.length===0)return null;
+  return arrayofWords.includes(word)
+}
 
 
 
@@ -78,7 +155,13 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes() {}
+function howManyTimes(arrayofWords,word) {
+  let occurrence =0;
+  arrayofWords.forEach(function(element){
+    if(element===word)occurrence++;
+  });
+return occurrence;
+}
 
 
 
@@ -106,8 +189,54 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+const matrix2 = [[ 2,  2, 2, 2, 2],
+[ 2, 2, 2, 2, 2],
+[ 2, 2, 2, 2, 2],
+[ 2, 2, 2, 2, 2],
+[ 2, 2, 2, 2, 2]];
 
+function getBestProductByLine(theMatrix){
+  if(theMatrix.length===0)return null;
+  let product=0;
+  const sizeofMatrix=theMatrix.length;
+  for(let i= 0; i<sizeofMatrix-3;i++){
+    let tempProduct=0;
+    for(let j = i; j<4;j++){
+        if(tempProduct===0){
+          tempProduct=theMatrix[i][j]
+          console.log(`on initialise le produit à ${tempProduct}`)
+        }else{
+          console.log(`Le nouveau porduit est ${tempProduct} x ${theMatrix[i][j]}`)
+          tempProduct*=theMatrix[i][j];
+          console.log(`le produit est à ${tempProduct}\n`)
+        }
+    }
+    if(tempProduct>product)product=tempProduct;
+    
+  }
+  return product;
+}
+function transposeMatrix(anyMatrix){
+  for(let i=0; i<anyMatrix.length;i++){
+    for(let j=0; j<i;j++){
+      const temp= anyMatrix[i][j];
+      anyMatrix[i][j]=anyMatrix[j][i];
+      anyMatrix[j][i]=temp;
+    }
+  }
+
+  return anyMatrix;
+}
+function greatestProduct(myMatrix) {
+  if(myMatrix.length===0)return null;
+  let product=getBestProductByLine(myMatrix);
+  const myMatrixTransposed = transposeMatrix(myMatrix);
+  if(getBestProductByLine(myMatrixTransposed)>product)product = getBestProductByLine(myMatrixTransposed)
+  
+  return product;
+}
+
+console.log(greatestProduct(matrix))
 
 
 
