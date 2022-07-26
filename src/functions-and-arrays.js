@@ -58,15 +58,12 @@ function sum(arrayOfAll) {
     switch(typeof element){
       case 'number':
         sumofAll+=element;
-        
         break;
       case 'string':
         sumofAll+=element.length;
-  
         break;
       case 'boolean':
         sumofAll+=element;
-        
         break;
       default:
         throw new Error("Unsupported data type sir or ma'am");
@@ -201,7 +198,7 @@ function getBestProductByLine(theMatrix){
   const sizeofMatrix=theMatrix.length;
   for(let i= 0; i<sizeofMatrix-3;i++){
     let tempProduct=0;
-    for(let j = i; j<4;j++){
+    for(let j = i; j<i+4;j++){
         if(tempProduct===0){
           tempProduct=theMatrix[i][j]
           console.log(`on initialise le produit à ${tempProduct}`)
